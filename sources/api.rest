@@ -1,0 +1,28 @@
+@BASE_URL=https://jsonplaceholder.typicode.com
+@BASE_URL_LOCAL=http://localhost:3000/api
+
+###
+
+GET {{BASE_URL}}/todos
+
+###
+
+POST {{BASE_URL}}/todos
+Content-Type: application/json
+
+{
+    "title": "foo",
+    "userId": 10,
+    "completed": "false"
+}
+
+###
+
+GET {{BASE_URL_LOCAL}}/jsonplaceholder
+
+###
+
+POST {{BASE_URL_LOCAL}}/jsonplaceholder
+Content-Type: application/x-www-form-urlencoded
+
+title=foo&userId=1
