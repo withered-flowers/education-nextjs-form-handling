@@ -1,11 +1,11 @@
 import {
 	TodoForm as ClientTodoForm,
 	TodoList as ClientTodoList,
-} from "./components/client-side";
+} from "../components/client-side";
 import {
 	TodoForm as ServerTodoForm,
 	TodoList as ServerTodoList,
-} from "./components/server-side";
+} from "../components/server-side";
 
 export const Home = () => {
 	return (
