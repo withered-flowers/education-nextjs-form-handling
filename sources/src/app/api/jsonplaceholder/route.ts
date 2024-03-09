@@ -1,4 +1,4 @@
-import { TodoInput } from "@/types/jsonplaceholder.defs";
+import type { TodoInput } from "@/types/jsonplaceholder.defs";
 import { createTodo, fetchTodos } from "@/utils/jsonplaceholder";
 
 export const GET = async (): Promise<Response> => {

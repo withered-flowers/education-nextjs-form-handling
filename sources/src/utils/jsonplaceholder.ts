@@ -1,9 +1,9 @@
-import { Todo, TodoInput } from "@/types/jsonplaceholder.defs";
+import type { Todo, TodoInput } from "@/types/jsonplaceholder.defs";
 
 const todos: Todo[] = [
-	{ id: 1, userId: 1, title: "Buy milk", completed: false },
+	{ id: 1, userId: 1, title: "Buy milk", completed: true },
 	{ id: 2, userId: 1, title: "Buy eggs", completed: false },
-	{ id: 3, userId: 2, title: "Buy bread", completed: false },
+	{ id: 3, userId: 2, title: "Buy bread", completed: true },
 	{ id: 4, userId: 3, title: "Buy butter", completed: false },
 	{ id: 5, userId: 3, title: "Buy cheese", completed: false },
 ];

@@ -10,12 +10,12 @@ import {
 export const Home = () => {
 	return (
 		<main>
-			<section className="bg-blue-100 p-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+			<section className="bg-blue-100 p-2 grid grid-cols-1 lg:grid-cols-2 gap-2">
 				<ServerTodoList />
 				<ServerTodoForm />
 			</section>
 
-			<section className="bg-teal-100 p-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+			<section className="bg-teal-100 p-2 grid grid-cols-1 lg:grid-cols-2 gap-2">
 				<ClientTodoList />
 				<ClientTodoForm />
 			</section>
