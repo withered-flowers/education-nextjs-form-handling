@@ -18,6 +18,15 @@ Content-Type: application/json
 
 ###
 
+PATCH {{BASE_URL}}/todos/1
+Content-Type: application/json
+
+{
+    "completed": "true"
+}
+
+###
+
 GET {{BASE_URL_LOCAL}}/jsonplaceholder
 
 ###

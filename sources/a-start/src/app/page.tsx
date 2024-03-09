@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Belajar Form Handling - Home",
+};
+
 export const Home = () => {
 	return (
 		<main className="mx-auto w-full lg:w-1/2 p-4 border border-black flex flex-col gap-2">

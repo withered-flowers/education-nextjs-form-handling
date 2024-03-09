@@ -25,15 +25,15 @@ export default function RootLayout({
 						</Link>
 						<Link
 							className="text-emerald-500 hover:text-emerald-800/80 underline transition-colors duration-300"
-							href="/server-side"
+							href="/server-component"
 						>
-							Server Side
+							Server Component
 						</Link>
 						<Link
 							className="text-emerald-500 hover:text-emerald-800/80 underline transition-colors duration-300"
-							href="/client-side"
+							href="/client-component"
 						>
-							Client Side
+							Client Component
 						</Link>
 					</section>
 
