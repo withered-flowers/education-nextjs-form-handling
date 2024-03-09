@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const Page = () => {
 	return (
 		<section className="bg-blue-100 p-2 grid grid-cols-1 lg:grid-cols-2 gap-2">
-			{/* ServerTodoList dan ServerTodoForm masing masing adalah Client Component */}
+			{/* ServerTodoList dan ServerTodoForm masing masing adalah Server Component */}
 			<ServerTodoList />
 			<ServerTodoForm />
 		</section>
