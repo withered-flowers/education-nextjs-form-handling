@@ -1,35 +1,43 @@
 "use client";
 
 import type { Todo } from "@/types/jsonplaceholder.defs";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+
+type Props = {
+	todos: Todo[];
+};
 
 // ? Ingat ini Client Component
 // ? Client Component tidak bisa async, namun bisa menggunakan Hooks (React).
-const TodoList = () => {
+// ? Dan juga bisa menerima props, dimana datanya dari Server Component (page.tsx)
+const TodoList = ({ todos }: Props) => {
+	// ! Karena datanya di-props dari server component (page.tsx),
+	// ! Jadinya... tidak perlu useState dan useEffect sama sekali
 	// ? Bisa Hooks? jadi Gunakan useState dhe !
-	const [todos, setTodos] = useState<Todo[]>([]);
+	// const [todos, setTodos] = useState<Todo[]>([]);
 
 	// ? Supaya bisa fetch (dari Server / API), kita gunakan useEffect
 	// ! Ingat:
 	// ! - Fetch ini akan terjadi di client,
 	// !   	karena ada "loading" 1 detik akan terjadi "delay" / "data kosong"
 	// !   	selama 1 detik di client, sebelum terjadi re-render !
-	useEffect(() => {
-		const fetchTodos = async () => {
-			const response = await fetch("/api/jsonplaceholder");
-			const responseJson: Todo[] = await response.json();
+	// ? Tidak diperlukan lagi, karena data sudah diprops dari Server Component
+	// useEffect(() => {
+	// 	const fetchTodos = async () => {
+	// 		const response = await fetch("/api/jsonplaceholder");
+	// 		const responseJson: Todo[] = await response.json();
 
-			setTodos(responseJson);
-		};
+	// 		setTodos(responseJson);
+	// 	};
 
-		fetchTodos();
-	}, []);
+	// 	fetchTodos();
+	// }, []);
 
 	return (
 		<section className="border border-black p-2">
 			<p className="text-xl font-semibold">List - Client Component</p>
 
-			{/* ? Hanya untuk pembelajaran saja, jadi mari gunakan table */}
+			{/* // ? Hanya untuk pembelajaran saja, jadi mari gunakan table */}
 			<section className="p-4">
 				<table className="mx-auto">
 					<thead>

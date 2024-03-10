@@ -1,5 +1,7 @@
 "use client";
 
+import { formAddTodoServerActions } from "@/actions";
+
 const TodoForm = () => {
 	return (
 		<section className="border border-black p-2">
@@ -7,11 +9,15 @@ const TodoForm = () => {
 
 			<section className="p-4">
 				<p className="text-center p-4 font-semibold">Form Add Todo</p>
-				<form className="flex flex-col gap-4 mx-auto w-fit">
+				<form
+					className="flex flex-col gap-4 mx-auto w-fit"
+					action={formAddTodoServerActions}
+				>
 					<div className="flex flex-col">
 						<label htmlFor="title">Todo Title</label>
 						<input
 							id="title"
+							name="title"
 							className="py-2 px-4 rounded"
 							type="text"
 							placeholder="e.g. Buy soda"
@@ -22,6 +28,7 @@ const TodoForm = () => {
 						<label htmlFor="userId">Todo User Id</label>
 						<input
 							id="userId"
+							name="userId"
 							className="py-2 px-4 rounded"
 							type="number"
 							placeholder="e.g. 1"
