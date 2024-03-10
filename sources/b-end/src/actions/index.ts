@@ -2,7 +2,7 @@
 // ? File yang ada di sini harus menggunakan directive "use server"
 "use server";
 
-import { createTodo } from "@/utils/jsonplaceholder";
+import { createTodo, setTodoAsCompleted } from "@/utils/jsonplaceholder";
 import { revalidatePath } from "next/cache";
 
 // ? Rules untuk membuat server actions:
@@ -33,7 +33,7 @@ export const formAddTodoServerActions = async (formData: FormData) => {
 		});
 
 		// ? Jangan lupa karena fetch-nya akan terkena cache
-		// ? Kita akan minta untuk flagging cache "stale" (basi) untuk path "/"
+		// ? Kita akan minta untuk flagging cache "stale" (basi) untuk path "/" (layout)
 		// ? Sehingga akan melakukan re-fetching ulang
 
 		// ! useEffect tidak akan tertrigger ulang !
@@ -52,6 +52,49 @@ export const formAddTodoServerActions = async (formData: FormData) => {
 		finalResult = false;
 	}
 
-	// Bila semua sudah selesai, kita bisa melakukan return
+	// ? Bila semua sudah selesai, kita bisa melakukan return
+	// ? Selain mengembalikan hanya satu nilai, kita juga bisa mengembalikan object
+	// ? (Jika diperlukan, yang penting adalah data harus bersifat Serializable)
+	return finalResult;
+};
+
+// ? Server Actions selain hanya bisa menerima FormData,
+// ? juga bisa menerima inputan tambahan, via parameter sebelum FormData
+// ? Sehingga cara menerimanya, adalah dengan:
+// ? - Parameter pertama, kedua, ketiga, dst adalah data tambahan (args)
+// ? - Parameter terakhir adalah FormData
+// ? - const fn = async (...args, formData: FormData) => Promise<Serializable>
+
+// ! Perhatikan cara menambahkan inputan tambahan pada Server Action-nya yah !
+// ! (Bisa dilihat pada /src/components/server-side/TodoList.tsx)
+export const formCompleteTodoServerActions = async (
+	todoId: number,
+	_formData: FormData,
+) => {
+	let finalResult = false;
+
+	try {
+		// ? Ceritanya di sini kita hanya mau meng-set todo yang terpilih jadi complete
+		// ? Kemudian akan melakukan "refresh / refetch" data
+		await setTodoAsCompleted(todoId);
+
+		// ? Jangan lupa karena fetch-nya akan terkena cache
+		// ? Kita akan minta untuk flagging cache "stale" (basi) untuk path "/" (layout)
+		// ? Sehingga akan melakukan re-fetching ulang
+
+		// ! useEffect tidak akan tertrigger ulang !
+		revalidatePath("/", "layout");
+
+		// ? Asumsi:
+		// ? Boolean true apabila berhasil,
+		// ? Boolean false apabila gagal
+		finalResult = true;
+	} catch (err) {
+		finalResult = false;
+	}
+
+	// ? Bila semua sudah selesai, kita bisa melakukan return
+	// ? Selain mengembalikan hanya satu nilai, kita juga bisa mengembalikan object
+	// ? (Jika diperlukan, yang penting adalah data harus bersifat Serializable)
 	return finalResult;
 };

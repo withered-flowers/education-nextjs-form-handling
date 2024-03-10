@@ -1,3 +1,5 @@
+// ? Import server actions
+import { formCompleteTodoServerActions } from "@/actions";
 import { fetchTodos } from "@/utils/jsonplaceholder";
 
 // ? Ingat:
@@ -25,26 +27,52 @@ const TodoList = async () => {
 						</tr>
 					</thead>
 					<tbody>
-						{todos.map((todo) => (
-							<tr key={todo.id}>
-								<td className="p-2 text-center">{todo.id}</td>
-								<td className="p-2 text-center">{todo.userId}</td>
-								<td className="p-2 text-left">{todo.title}</td>
-								<td className="p-2 text-center">
-									{todo.completed ? "Yes" : "No"}
-								</td>
-								{!todo.completed && (
-									<td className="p-2">
-										<button
-											type="button"
-											className="py-1 px-2 bg-gray-100 hover:bg-gray-300 rounded transition-colors duration-300"
-										>
-											Set as Completed
-										</button>
+						{todos.map((todo) => {
+							// ? Karena di sini kita harus memodifikasi kode
+							// ? Maka kita akan menggunakan { } dan harus menggunakan return
+							// ? daripada langsung mengembalikan component
+
+							// ? Di sini kita akan mengikat variabel yang dibutuhkan
+							// ? untuk formCompleteTodoServerActions (todo.id)
+
+							// ? Kita bisa menggunakan bind untuk mengikat variabel:
+							// ? Parameter pertama adalah this, karena kita tidak memerlukan this
+							// ? > Maka kita gunakan null
+							// ? Parameter kedua (dan sisanya) adalah todo.id (dan argumen lainnya)
+							// ? > Maka kita gunakan todo.id
+
+							// ? Kenapa begini?
+							// ? Supaya bisa tetap langsung digunakan dalam "Server Action"
+							const formCompleteTodoServerActionsWithId =
+								formCompleteTodoServerActions.bind(null, todo.id);
+
+							return (
+								<tr key={todo.id}>
+									<td className="p-2 text-center">{todo.id}</td>
+									<td className="p-2 text-center">{todo.userId}</td>
+									<td className="p-2 text-left">{todo.title}</td>
+									<td className="p-2 text-center">
+										{todo.completed ? "Yes" : "No"}
 									</td>
-								)}
-							</tr>
-						))}
+									{!todo.completed && (
+										<td className="p-2">
+											{/* // ? Karena ini merupakan Server Component, */}
+											{/* // ? Maka kita hanya bisa menggunakan Form  */}
+											{/* // ? (tidak ada event handler) */}
+											<form action={formCompleteTodoServerActionsWithId}>
+												{/* // ? Jangan lupa button ini diganti typenya menjadi submit */}
+												<button
+													type="submit"
+													className="py-1 px-2 bg-gray-100 hover:bg-gray-300 rounded transition-colors duration-300"
+												>
+													Set as Completed
+												</button>
+											</form>
+										</td>
+									)}
+								</tr>
+							);
+						})}
 					</tbody>
 				</table>
 			</section>

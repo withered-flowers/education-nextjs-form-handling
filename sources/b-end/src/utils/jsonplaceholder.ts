@@ -50,3 +50,32 @@ export const createTodo = async (newTodo: TodoInput) => {
 
 	return todoUntukDimasukkanKeArrayTodos;
 };
+
+// Fungsi tambahan untuk mengubah todo menjadi completed
+export const setTodoAsCompleted = async (todoId: number) => {
+	// ? Seharusnya seperti ini bila menggunakan fetch dari jsonplaceholder
+	// const response = await fetch(
+	// 	`https://jsonplaceholder.typicode.com/todos/${todoId}`,
+	// 	{
+	// 		method: "PATCH",
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 		body: JSON.stringify({ completed: true }),
+	// 	},
+	// );
+	// const responseJson: Todo = await response.json();
+	// return responseJson;
+
+	// ? Mari kita emulasikan fetch dari jsonplaceholder
+	const todo = todos.find((todo) => todo.id === todoId);
+
+	if (todo) {
+		todo.completed = true;
+	}
+
+	// ? Emulasi fetch dari jsonplaceholder yang lama (1 detik)
+	await new Promise((resolve) => setTimeout(resolve, 1000));
+
+	return todo;
+};
