@@ -11,7 +11,11 @@ const TodoForm = () => {
 				<p className="text-center p-4 font-semibold">Form Add Todo</p>
 				<form
 					className="flex flex-col gap-4 mx-auto w-fit"
-					action={formAddTodoServerActions}
+					action={async (formData: FormData) => {
+						console.log(formData.get("title"));
+						console.log(formData.get("userId"));
+						formAddTodoServerActions(formData);
+					}}
 				>
 					<div className="flex flex-col">
 						<label htmlFor="title">Todo Title</label>

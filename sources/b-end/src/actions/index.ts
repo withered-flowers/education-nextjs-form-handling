@@ -2,14 +2,20 @@
 // ? File yang ada di sini harus menggunakan directive "use server"
 "use server";
 
-import { createTodo, setTodoAsCompleted } from "@/utils/jsonplaceholder";
+import {
+	createTodo,
+	fetchTodos,
+	setTodoAsCompleted,
+} from "@/utils/jsonplaceholder";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 // ? Rules untuk membuat server actions:
 // ? - Wajib berupa async function
 // ? - Bisa menerima sebuah parameter berupa FormData (optional)
 export const formAddTodoServerActions = async (formData: FormData) => {
 	let finalResult = false;
+	console.log("This is triggered");
 
 	try {
 		// ? Ambil data dari FormData Submission (berdasarkan input name)
@@ -39,6 +45,10 @@ export const formAddTodoServerActions = async (formData: FormData) => {
 		// ! useEffect tidak akan tertrigger ulang !
 		revalidatePath("/", "layout");
 
+		const todos = await fetchTodos();
+		console.log(todos);
+		console.log("Cookies: ", cookies().toString());
+
 		// ? Kita juga bisa melakukan return
 		// ! Yang penting adalah data harus bersifat Serializable
 		// ! (https://react.dev/reference/react/use-server#serializable-parameters-and-return-values)
@@ -55,6 +65,7 @@ export const formAddTodoServerActions = async (formData: FormData) => {
 	// ? Bila semua sudah selesai, kita bisa melakukan return
 	// ? Selain mengembalikan hanya satu nilai, kita juga bisa mengembalikan object
 	// ? (Jika diperlukan, yang penting adalah data harus bersifat Serializable)
+	console.log("Final result is", finalResult);
 	return finalResult;
 };
 

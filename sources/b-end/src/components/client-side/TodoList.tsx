@@ -33,6 +33,9 @@ const TodoList = ({ todos }: Props) => {
 	// 	fetchTodos();
 	// }, []);
 
+	console.log("Re-render on client");
+	console.log(todos);
+
 	return (
 		<section className="border border-black p-2">
 			<p className="text-xl font-semibold">List - Client Component</p>
